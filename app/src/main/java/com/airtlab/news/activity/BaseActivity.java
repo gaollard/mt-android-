@@ -75,4 +75,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         Intent in = new Intent(mContext, cls);
         startActivity(in);
     }
+
+    public void navigateToWithFlag(Class cls, int flags) {
+        Intent in = new Intent(mContext, cls);
+        in.setFlags(flags);
+        startActivity(in);
+    }
 }

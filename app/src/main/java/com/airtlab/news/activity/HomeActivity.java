@@ -1,4 +1,5 @@
 package com.airtlab.news.activity;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.airtlab.news.R;
 import android.os.Bundle;
