@@ -73,6 +73,8 @@ public class HomeActivity extends BaseActivity {
             public void onTabReselect(int position) { }
         });
 
+        // 设置预先加载 Fragment，防止快速切换BUG
+        viewPager.setOffscreenPageLimit(mFragments.size());
         // ViewPager 设置监听
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
