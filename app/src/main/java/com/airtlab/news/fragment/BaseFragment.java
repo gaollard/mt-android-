@@ -12,12 +12,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public abstract class BaseFragment extends Fragment {
     protected View mRootView;
-//    private Unbinder unbinder;
+    private Unbinder unbinder;
 
     @Nullable
     @Override
@@ -26,7 +28,7 @@ public abstract class BaseFragment extends Fragment {
             mRootView = inflater.inflate(initLayout(), container, false);
             initView();
         }
-//        unbinder = ButterKnife.bind(this, mRootView);
+        unbinder = ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
@@ -39,7 +41,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        unbinder.unbind();
+        unbinder.unbind();
     }
 
     protected abstract int initLayout();
