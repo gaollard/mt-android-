@@ -162,6 +162,9 @@ public class VideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             // 点击事件
             mPlayerContainer.setOnClickListener(this);
             itemView.setOnClickListener(this);
+
+            // 通过tag将ViewHolder和itemView绑定
+            itemView.setTag(this);
         }
 
         @Override
