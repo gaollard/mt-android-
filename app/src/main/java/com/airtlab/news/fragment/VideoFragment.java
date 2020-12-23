@@ -153,7 +153,7 @@ public class VideoFragment extends BaseFragment implements OnItemChildClickListe
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mVideoView.release();
+        releaseVideoView();
     }
 
     /**
@@ -169,6 +169,9 @@ public class VideoFragment extends BaseFragment implements OnItemChildClickListe
      * @param position
      */
     protected void startPlay(int position) {
+        if (mCurPos == position) return;
+        if (mCurPos != -1) releaseVideoView();
+
         VideoEntity videoEntity = mVideoList.get(position);
         mVideoView.setUrl(videoEntity.getPlayurl());
         mTitleView.setTitle(videoEntity.getVtitle());
@@ -184,18 +187,13 @@ public class VideoFragment extends BaseFragment implements OnItemChildClickListe
         viewHolder.mPlayerContainer.addView(mVideoView, 0);
         // 播放之前将 VideoView 添加到 VideoViewManager 以便在别的页面也能操作它
         getVideoViewManager().add(mVideoView, Tag.LIST);
-        mVideoView.start();
+        mVideoView.start(); // 开始播放
+        mCurPos = position;
     }
 
     private void releaseVideoView() {
         mVideoView.release();
-//        if (mVideoView.isFullScreen()) {
-//            mVideoView.stopFullScreen();
-//        }
-//        if (getActivity().getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-//            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//        }
-//        mCurPos = -1;
+        mCurPos = -1;
     }
 
     protected VideoViewManager getVideoViewManager() {
