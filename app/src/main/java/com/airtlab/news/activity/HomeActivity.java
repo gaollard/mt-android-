@@ -9,6 +9,7 @@ import com.airtlab.news.entity.TabEntity;
 import com.airtlab.news.fragment.HomeFragment;
 import com.airtlab.news.fragment.MyFragment;
 import com.airtlab.news.fragment.NewsFragment;
+import com.airtlab.news.fragment.ProjectFragment;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -17,16 +18,18 @@ import java.util.ArrayList;
 
 public class HomeActivity extends BaseActivity {
     // 底部Tab标题配置
-    private String[] mTitles = {"首页", "资讯", "我的"};
+    private String[] mTitles = {"首页", "大厅", "资讯", "我的"};
     // 底部按钮未选中状态图标
     private int[] mIconUnselectIds = {
             R.mipmap.home_unselect,
+            R.mipmap.collect_unselect,
             R.mipmap.collect_unselect,
             R.mipmap.my_unselect
     };
     // 底部Tab选中状态图标
     private int[] mIconSelectIds = {
             R.mipmap.home_selected,
+            R.mipmap.collect_selected,
             R.mipmap.collect_selected,
             R.mipmap.my_selected
     };
@@ -54,6 +57,7 @@ public class HomeActivity extends BaseActivity {
     protected void initData() {
         // mFragments 初始化
         mFragments.add(HomeFragment.newInstance());
+        mFragments.add(ProjectFragment.newInstance());
         mFragments.add(NewsFragment.newInstance());
         mFragments.add(MyFragment.newInstance());
 

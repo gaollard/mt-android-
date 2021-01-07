@@ -11,4 +11,13 @@ public class ApiConfig {
     public static final String NEWS_LIST = "/app/news/api/list";//资讯列表
     public static final String VIDEO_UPDATE_COUNT = "/app/videolist/updateCount";//更新点赞,收藏,评论
     public static final String VIDEO_MYCOLLECT = "/app/videolist/mycollect";//我的收藏
+
+    public static final String REN_WU_BASE_URl = "http://renwu.airtlab.com/api";
+
+    // 项目
+    public static final String project_category = "/demand-category";
+    public static final String project_list = "/demand";
+
+    // 用户
+    public static final String user_userInfo = "/user/userInfo";
 }
