@@ -44,6 +44,7 @@ public class ProjectFragment extends BaseFragment {
     private LinearLayoutManager linearLayoutManager;
     private List<ProjectEntity> newsList = new ArrayList();
     private int pageNum = 1;
+    private int categoryId = -1;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -63,6 +64,12 @@ public class ProjectFragment extends BaseFragment {
         return fragment;
     }
 
+    public static ProjectFragment newInstance(int categoryId) {
+        ProjectFragment fragment = new ProjectFragment();
+        fragment.categoryId = categoryId;
+        return fragment;
+    }
+
     @Override
     protected int initLayout() {
         return R.layout.fragment_project;
@@ -71,8 +78,6 @@ public class ProjectFragment extends BaseFragment {
     @Override
     protected void initView() {
         recyclerView = mRootView.findViewById(R.id.recyclerView);
-//        SpacesItemDecoration decoration = new SpacesItemDecoration(40);
-//        recyclerView.addItemDecoration(decoration);
         refreshLayout = mRootView.findViewById(R.id.refreshLayout);
     }
 
@@ -100,23 +105,28 @@ public class ProjectFragment extends BaseFragment {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 pageNum = 1;
-                getNewsList(true);
+                getDataList(true);
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
                 pageNum++;
-                getNewsList(false);
+                getDataList(false);
             }
         });
-        getNewsList(true);
+        getDataList(true);
     }
 
-    private void getNewsList(final boolean isRefresh) {
+    /**
+     * @desc 获取项目列表
+     * @param isRefresh
+     */
+    private void getDataList(final boolean isRefresh) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("pageSize", ApiConfig.PAGE_SIZE);
         params.put("pageIndex", pageNum);
+        params.put("appTypeId", categoryId);
 
         Api2.config(ApiConfig.project_list, params).getRequest(getActivity(), new ApiCallback() {
             @Override

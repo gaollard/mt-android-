@@ -7,21 +7,6 @@
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".fragment.ProjectFragment">
-
-    <!--标题栏-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/skin_topbar_bg_color">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="大厅"
-            android:textColor="@color/skin_text_white"
-            android:textSize="18sp" />
-    </RelativeLayout>
-
     <!--列表-->
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"

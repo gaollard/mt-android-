@@ -10,23 +10,25 @@
     <!--顶部悬浮-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="116dp"
-        android:background="#344261"
+        android:layout_height="115dp"
         android:orientation="vertical">
+
+        <!--搜索框-->
         <LinearLayout
-            android:layout_weight="1"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_marginTop="12dp"
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="39dp"
                 android:layout_marginLeft="12dp"
-                android:background="@drawable/shape_search_box"
+                android:background="#f4f4f4"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                >
                 <ImageView
                     android:layout_width="22dp"
                     android:layout_height="22dp"
@@ -47,10 +49,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:textSize="15sp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:text="牛人榜" />
         </LinearLayout>
-        <!--搜索框-->
 
         <!--横向菜单-->
         <com.flyco.tablayout.SlidingTabLayout

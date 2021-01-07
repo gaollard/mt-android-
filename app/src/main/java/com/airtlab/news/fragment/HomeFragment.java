@@ -15,9 +15,13 @@ import android.view.ViewGroup;
 import com.airtlab.news.R;
 import com.airtlab.news.adapter.HomeAdapter;
 import com.airtlab.news.api.Api;
+import com.airtlab.news.api.Api2;
 import com.airtlab.news.api.ApiCallback;
 import com.airtlab.news.api.ApiConfig;
+import com.airtlab.news.api.ApiConfig2;
 import com.airtlab.news.entity.CategoryEntity;
+import com.airtlab.news.entity.ProjectCategory;
+import com.airtlab.news.entity.ProjectCategoryListResponse;
 import com.airtlab.news.entity.VideoCategoryResponse;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
@@ -52,26 +56,25 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getVideoCategoryList();
+        getProjectCategoryList();
     }
 
-    private void getVideoCategoryList() {
+    private void getProjectCategoryList() {
         HashMap<String, Object> params = new HashMap<>();
-        Api.config(ApiConfig.VIDEO_CATEGORY_LIST, params).getRequest(getActivity(), new ApiCallback() {
+        Api2.config(ApiConfig2.project_category, params).getRequest(getActivity(), new ApiCallback() {
             @Override
             public void onSuccess(String res) {
-                Log.e("VIDEO_CATEGORY_LIST onSuccess", res);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        VideoCategoryResponse response = new Gson().fromJson(res, VideoCategoryResponse.class);
-                        if (response != null && response.getCode() == 0) {
-                            List<CategoryEntity> list = response.getPage().getList();
+                        ProjectCategoryListResponse response = new Gson().fromJson(res, ProjectCategoryListResponse.class);
+                        if (response != null && response.errCode.equals("0")) {
+                            List<ProjectCategory> list = response.data.list;
                             if (list != null && list.size() > 0) {
                                 mTitles = new String[list.size()];
                                 for (int i = 0; i < list.size(); i++) {
-                                    mTitles[i] = list.get(i).getCategoryName();
-                                    mFragments.add(VideoFragment.newInstance(list.get(i).getCategoryId()));
+                                    mTitles[i] = list.get(i).name;
+                                    mFragments.add(ProjectFragment.newInstance(list.get(i).id));
                                 }
                                 viewPager.setOffscreenPageLimit(mFragments.size());
                                 viewPager.setAdapter(new HomeAdapter(getFragmentManager(), mTitles, mFragments));
@@ -84,7 +87,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Exception e) {
-                Log.e("VIDEO_CATEGORY_LIST onFailure", e.getMessage());
+                Log.e(ApiConfig2.project_category + " onFailure", e.getMessage());
             }
         });
     }
