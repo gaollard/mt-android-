@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.airtlab.news.R;
+import com.airtlab.news.activity.UserRankActivity;
 import com.airtlab.news.adapter.HomeAdapter;
 import com.airtlab.news.api.Api;
 import com.airtlab.news.api.Api2;
@@ -34,7 +35,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles;
     private ViewPager viewPager;
@@ -56,7 +57,30 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        view.findViewById(R.id.go_to_user_rank).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("hello", "world");
+                Bundle bundle = new Bundle();
+                navigateToWithBundle(UserRankActivity.class, bundle);
+            }
+        });
         getProjectCategoryList();
+    }
+
+    @Override
+    protected int initLayout() {
+        return 0;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private void getProjectCategoryList() {

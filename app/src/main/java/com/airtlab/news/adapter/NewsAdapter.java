@@ -20,22 +20,43 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class NewsAdapter extends RecyclerView.Adapter {
-    private Context mContext;
+    private Context mContext; // Activity Context
     private List<NewsEntity> mNewsList = new ArrayList<>(); // 列表数据
-    private OnItemClickListener mOnItemClickListener;
+    private OnItemClickListener mOnItemClickListener; // 点击 Item 回调
 
+    /**
+     * 设置点击 Item 回调
+     * @param onItemClickListener
+     */
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 
+    /**
+     * 构造器，无列表数据
+     * @param context
+     */
     public NewsAdapter(Context context) {
         this.mContext = context;
     }
 
-    // Context 是啥?
+    /**
+     * 构造器，有列表数据
+     * @param context
+     * @param list
+     */
     public NewsAdapter(Context context, List<NewsEntity> list) {
         mContext = context;
         mNewsList = list;
+    }
+
+    /**
+     * @desc 设置列表数据，不通过构造器，避免反复创建 Adapter
+     * @param list
+     */
+    public void setDataList(List<NewsEntity> list) {
+        this.mNewsList = list;
+        // 这里不需要手动调用刷新吗？像 IOS UITableView 那样
     }
 
     /**
@@ -49,6 +70,12 @@ public class NewsAdapter extends RecyclerView.Adapter {
         return type;
     }
 
+    /**
+     * onCreateViewHolder
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,14 +91,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
         }
     }
 
-    /**
-     * @desc 设置列表数据，不通过构造器，避免反复创建 Adapter
-     * @param list
-     */
-    public void setDataList(List<NewsEntity> list) {
-        this.mNewsList = list;
-    }
-
+    // onBindViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         int type = getItemViewType(position);
@@ -130,11 +150,13 @@ public class NewsAdapter extends RecyclerView.Adapter {
         }
     }
 
+    // 长度获取
     @Override
     public int getItemCount() {
         return mNewsList.size();
     }
 
+    // Item Holder
     public class ViewHolderOne extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView author;
@@ -161,6 +183,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
         }
     }
 
+    // Item Holder
     public class ViewHolderTwo extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView author;
@@ -189,6 +212,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
         }
     }
 
+    // Item Holder
     public class ViewHolderThree extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView author;

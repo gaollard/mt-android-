@@ -18,6 +18,9 @@ public class ApiConfig {
     public static final String project_category = "/demand-category";
     public static final String project_list = "/demand";
 
+    // 用户排名
+    public static final String user_rank_list = "/user/users";
+
     // 用户
     public static final String user_userInfo = "/user/userInfo";
 }
