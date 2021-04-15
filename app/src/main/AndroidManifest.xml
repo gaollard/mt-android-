@@ -16,6 +16,7 @@
         <activity android:name=".activity.HomeActivity"  android:configChanges="orientation|screenSize" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.UserRankActivity" />
+        <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.WebActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

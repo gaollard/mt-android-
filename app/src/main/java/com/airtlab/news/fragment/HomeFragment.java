@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.airtlab.news.R;
+import com.airtlab.news.activity.SearchActivity;
 import com.airtlab.news.activity.UserRankActivity;
 import com.airtlab.news.adapter.HomeAdapter;
 import com.airtlab.news.api.Api;
@@ -57,12 +58,22 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         view.findViewById(R.id.go_to_user_rank).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("hello", "world");
                 Bundle bundle = new Bundle();
                 navigateToWithBundle(UserRankActivity.class, bundle);
+            }
+        });
+
+        view.findViewById(R.id.btn_go_to_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("hello", "world");
+                Bundle bundle = new Bundle();
+                navigateToWithBundle(SearchActivity.class, bundle);
             }
         });
         getProjectCategoryList();

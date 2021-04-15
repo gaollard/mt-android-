@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".fragment.HomeFragment">
+    tools:context=".activity.SearchActivity">
     <!--顶部悬浮-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="116dp"
-        android:background="#344261"
+        android:layout_height="56dp"
+        android:background="#ffffff"
         android:orientation="vertical">
         <LinearLayout
             android:layout_weight="1"
@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="12dp"
-                android:background="@drawable/shape_search_box"
+                android:background="#f5f5f5"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <ImageView
@@ -32,45 +32,27 @@
                     android:layout_height="22dp"
                     android:layout_marginLeft="13dp"
                     android:src="@mipmap/search" />
-                <TextView
-                    android:id="@+id/btn_go_to_search"
-                    android:layout_weight="1"
+
+                <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="11dp"
-                    android:textSize="15sp"
+                    android:layout_weight="1"
+                    android:hint="通过标题搜索"
+                    android:textColorHint="#666"
+                    android:background="@null"
                     android:textColor="@color/black"
-                    android:text="通过标题搜索" />
+                    android:textSize="15sp" />
             </LinearLayout>
             <TextView
-                android:id="@+id/go_to_user_rank"
+                android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:textSize="15sp"
-                android:textColor="@color/white"
-                android:text="牛人榜" />
+                android:textColor="#67686f"
+                android:text="返回" />
         </LinearLayout>
-        <!--搜索框-->
-
-        <!--横向菜单-->
-        <com.flyco.tablayout.SlidingTabLayout
-            android:id="@+id/slidingTabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            tl:tl_indicator_corner_radius="1.5dp"
-            tl:tl_indicator_height="3dp"
-            tl:tl_indicator_width="17dp"
-            tl:tl_textSelectColor="#fdf299"
-            tl:tl_textUnselectColor="#ffffff"
-            tl:tl_indicator_color="#fdf299"
-            tl:tl_textsize="16sp" />
     </LinearLayout>
-    <!--ViewPager容器-->
-    <com.airtlab.news.view.FixedViewPager
-        android:id="@+id/fixedViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 </LinearLayout>
