@@ -9,6 +9,7 @@ import com.airtlab.news.R;
 import com.airtlab.news.api.Api2;
 import com.airtlab.news.api.ApiCallback;
 import com.airtlab.news.api.ApiConfig2;
+import com.airtlab.news.entity.CityEntity;
 import com.airtlab.news.entity.CityResponseEntity;
 import com.airtlab.news.entity.ProjectCategory;
 import com.airtlab.news.entity.ProjectCategoryListResponse;
@@ -27,6 +28,8 @@ import java.util.HashMap;
  */
 public class PublishFragment extends BaseFragment {
     private ArrayList<ProjectCategory> projectCategoryList;
+    private ArrayList<CityEntity> cityList;
+    private int[] selectIndex = new int[3];
 
     public static PublishFragment newInstance() {
         PublishFragment fragment = new PublishFragment();
@@ -44,6 +47,12 @@ public class PublishFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 showProjectTypePicker();
+            }
+        });
+        mRootView.findViewById(R.id.choose_city).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCityPicker();
             }
         });
     }
@@ -87,6 +96,17 @@ public class PublishFragment extends BaseFragment {
     }
 
     /**
+     * @desc city picker item data
+     */
+    class CityBean implements IPickerViewData {
+        public String areaId;
+        public String areaName;
+        public String getPickerViewText() {
+            return areaName;
+        }
+    }
+
+    /**
      * @desc 显示选择项目类型弹窗
      */
     public void showProjectTypePicker() {
@@ -112,6 +132,88 @@ public class PublishFragment extends BaseFragment {
                 .build();
         pvOptions.setPicker(projectTypeItems);
         pvOptions.show();
+
+    }
+    /**
+     * @desc 显示选择项目类型弹窗
+     */
+    public void showCityPicker() {
+        ArrayList<CityBean> provinceItems = new ArrayList<>();
+        ArrayList<ArrayList<CityBean>> citItems = new ArrayList<>();
+        ArrayList<ArrayList<ArrayList<CityBean>>> districtItems = new ArrayList<>();
+
+        // province
+        for (int i = 0; i < cityList.size(); i++) {
+            CityBean bean = new CityBean();
+            bean.areaId = cityList.get(i).areaId;
+            bean.areaName = cityList.get(i).areaName;
+            provinceItems.add(bean);
+        }
+
+        // city
+        for (int i = 0; i < cityList.size(); i++) {
+            ArrayList<CityBean> beans = new ArrayList<>();
+            for (int j = 0; j < cityList.get(i).children.size(); j++) {
+                CityEntity city = cityList.get(i).children.get(j);
+                CityBean bean = new CityBean();
+                bean.areaId = city.areaId;
+                bean.areaName = city.areaName;
+                beans.add(bean);
+            }
+            citItems.add(beans);
+        }
+
+        // district
+        for (int i = 0; i < cityList.size(); i++) {
+            ArrayList<CityEntity> children_1 = cityList.get(i).children;
+            if (children_1 == null) {
+                children_1 = new ArrayList<>();
+            }
+            ArrayList<ArrayList<CityBean>> beans_1 = new ArrayList<>();
+            for (int j = 0; j < children_1.size(); j++) {
+                ArrayList<CityEntity> children_2 = children_1.get(j).children;
+                if (children_2 == null) {
+                    children_2 = new ArrayList<>();
+                }
+                ArrayList<CityBean> beans_2 = new ArrayList<>();
+                for (int k = 0; k < children_2.size(); k++) {
+                    CityBean bean = new CityBean();
+                    bean.areaId = children_2.get(k).areaId;
+                    bean.areaName = children_2.get(k).areaName;
+                    beans_2.add(bean);
+                }
+                beans_1.add(beans_2);
+            }
+            districtItems.add(beans_1);
+        }
+
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(getActivity(), new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int p1, int p2, int p3, View v) {
+                selectIndex[0] = p1;
+                selectIndex[1] = p2;
+                selectIndex[2] = p3;
+
+                TextView tv = mRootView.findViewById(R.id.city_value);
+                String province = provinceItems.get(p1).areaName;
+                String city = citItems.get(p1).get(p2).areaName;
+                String district = "";
+                if (districtItems.get(p1).get(p2).size() != 0) {
+                    district = districtItems.get(p1).get(p2).get(p3).areaName;
+                }
+                tv.setText(province + city + district);
+            }
+        })
+                .setTitleText("选择地址")
+                .setCancelText("取消")
+                .setSubmitText("确认")
+                .setLineSpacingMultiplier(2)
+                .build();
+        pvOptions.setPicker(provinceItems, citItems, districtItems);
+        if (selectIndex.length != 0) {
+            pvOptions.setSelectOptions(selectIndex[0], selectIndex[1], selectIndex[2]);
+        }
+        pvOptions.show();
     }
 
     /**
@@ -123,6 +225,9 @@ public class PublishFragment extends BaseFragment {
             @Override
             public void onSuccess(final String res) {
                 CityResponseEntity response = new Gson().fromJson(res, CityResponseEntity.class);
+                if (response != null && response.errCode.equals("0")) {
+                    cityList = response.data.list;
+                }
             }
             @Override
             public void onFailure(Exception e) {

@@ -1,13 +1,13 @@
 package com.airtlab.news.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-class SFCityData implements Serializable {
-    public CityEntity[] list;
-}
-
-public class CityResponseEntity extends ApiProtocol<SFCityData> implements Serializable {
-
+public class CityResponseEntity extends ApiProtocol implements Serializable {
+    public SFCityData data;
+    public class SFCityData implements Serializable {
+        public ArrayList<CityEntity> list;
+    }
 }
 
 
