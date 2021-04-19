@@ -1,6 +1,7 @@
 package com.airtlab.news.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectCategoryListResponse implements Serializable {
@@ -11,6 +12,6 @@ public class ProjectCategoryListResponse implements Serializable {
     public Data data;
 
     public static class Data {
-        public List<ProjectCategory> list;
+        public ArrayList<ProjectCategory> list;
     }
 }

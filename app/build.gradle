@@ -56,6 +56,9 @@ dependencies {
     implementation 'com.github.dueeeke.dkplayer:videocache:3.2.6'
     // 分页加载
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.3'
+    // Picker
+//    implementation 'com.contrarywind:Android-PickerView:4.1.9'
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
     // Binder
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'

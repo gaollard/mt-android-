@@ -12,4 +12,7 @@ public class ApiConfig2 {
     public static final String user_login = "/user/login";
     public static final String user_register = "/user/register";
     public static final String user_userInfo = "/user/userInfo";
+
+    // 公共
+    public static final String sfCity = "/sfCity";
 }

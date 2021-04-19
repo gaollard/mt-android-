@@ -15,12 +15,13 @@ public class ApiConfig {
     public static final String REN_WU_BASE_URl = "http://renwu.airtlab.com/api";
 
     // 项目
-    public static final String project_category = "/demand-category";
-    public static final String project_list = "/demand";
-
-    // 用户排名
-    public static final String user_rank_list = "/user/users";
+    public static final String project_category = "/demand-category";     // 获取项目类型列表
+    public static final String project_list = "/demand";                  // 获取项目列表
 
     // 用户
-    public static final String user_userInfo = "/user/userInfo";
+    public static final String user_rank_list = "/user/users";    //  用户排名
+    public static final String user_userInfo = "/user/userInfo";  // 获取用户信息
+
+    // 公共
+    public static final String sfCity = "/sfCity";                // 获取顺丰城市
 }
