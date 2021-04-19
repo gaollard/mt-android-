@@ -2,8 +2,8 @@ package com.airtlab.news.fragment;
 
 import android.util.Log;
 import android.view.View;
-
-import androidx.fragment.app.Fragment;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airtlab.news.R;
 import com.airtlab.news.api.Api2;
@@ -23,8 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
+ * @desc 发布悬赏项目 or 发布帖子
  */
 public class PublishFragment extends BaseFragment {
     private ArrayList<ProjectCategory> projectCategoryList;
@@ -41,21 +40,24 @@ public class PublishFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        mRootView.findViewById(R.id.choose_project_type).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProjectTypePicker();
+            }
+        });
     }
 
     @Override
     protected void initData() {
-        Log.e("PublishFragment", "initData");
         this.getCateData();
-//        this.getCityData();
+        this.getCityData();
     }
 
     /**
      * @desc 获取项目类型列表
      */
     private void getCateData() {
-        Log.e("start", "111");
         HashMap<String, Object> params = new HashMap<>();
         Api2.config(ApiConfig2.project_category, params).getRequest(getActivity(), new ApiCallback() {
             @Override
@@ -67,7 +69,7 @@ public class PublishFragment extends BaseFragment {
             }
             @Override
             public void onFailure(Exception e) {
-
+                Log.e(getActivity().getClass().getName(), e.toString());
             }
         });
     }
@@ -86,7 +88,8 @@ public class PublishFragment extends BaseFragment {
 
     /**
      * @desc 显示选择项目类型弹窗
-     */{
+     */
+    public void showProjectTypePicker() {
         ArrayList<ProjectTypeBean> projectTypeItems = new ArrayList<>();
         for (int i = 0; i < projectCategoryList.size(); i++) {
             ProjectTypeBean bean = new ProjectTypeBean();
@@ -94,14 +97,15 @@ public class PublishFragment extends BaseFragment {
             bean.name = projectCategoryList.get(i).name;
             projectTypeItems.add(bean);
         }
-        // 条件选择器
         OptionsPickerView pvOptions = new OptionsPickerBuilder(getActivity(), new OnOptionsSelectListener() {
             @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+            public void onOptionsSelect(int p1, int p2, int p3, View v) {
+                TextView tv = mRootView.findViewById(R.id.project_type_value);
+                tv.setText(projectTypeItems.get(p1).name);
             }
         })
                 .setLabels("省", "市", "区")
-                .setTitleText("城市选择")
+                .setTitleText("选择项目类型")
                 .setCancelText("取消")
                 .setSubmitText("确认")
                 .setLineSpacingMultiplier(2)
@@ -109,7 +113,6 @@ public class PublishFragment extends BaseFragment {
         pvOptions.setPicker(projectTypeItems);
         pvOptions.show();
     }
-    private void showProjectCatePicker()
 
     /**
      * @desc 获取城市数据
@@ -123,7 +126,7 @@ public class PublishFragment extends BaseFragment {
             }
             @Override
             public void onFailure(Exception e) {
-
+                Log.e(getActivity().getClass().getName(), e.toString());
             }
         });
     }
