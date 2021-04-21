@@ -10,9 +10,8 @@
     <!--顶部悬浮-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="115dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <!--搜索框-->
         <LinearLayout
             android:gravity="center_vertical"
@@ -23,9 +22,9 @@
             <LinearLayout
                 android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="39dp"
+                android:layout_height="36dp"
                 android:layout_marginLeft="12dp"
-                android:background="#f4f4f4"
+                android:background="@drawable/shape_search_entry"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 >
@@ -35,15 +34,17 @@
                     android:layout_marginLeft="13dp"
                     android:src="@mipmap/search" />
                 <TextView
+                    android:id="@+id/btn_go_to_search"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="11dp"
-                    android:textSize="15sp"
-                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textColor="#888"
                     android:text="通过标题搜索" />
             </LinearLayout>
             <TextView
+                android:id="@+id/go_to_user_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -61,9 +62,9 @@
             tl:tl_indicator_corner_radius="1.5dp"
             tl:tl_indicator_height="3dp"
             tl:tl_indicator_width="17dp"
-            tl:tl_textSelectColor="#fdf299"
-            tl:tl_textUnselectColor="#ffffff"
-            tl:tl_indicator_color="#fdf299"
+            tl:tl_textSelectColor="#333"
+            tl:tl_textUnselectColor="#888"
+            tl:tl_indicator_color="#ff2442"
             tl:tl_textsize="16sp" />
     </LinearLayout>
     <!--ViewPager容器-->
