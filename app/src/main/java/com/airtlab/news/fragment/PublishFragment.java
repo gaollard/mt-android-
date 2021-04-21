@@ -1,9 +1,13 @@
 package com.airtlab.news.fragment;
 
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airtlab.news.R;
 import com.airtlab.news.api.Api2;
@@ -18,10 +22,20 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.contrarywind.interfaces.IPickerViewData;
 import com.google.gson.Gson;
+//import com.lzy.imagepicker.ImagePicker;
+//import com.lzy.imagepicker.loader.ImageLoader;
+//import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.listener.OnResultCallbackListener;
+import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @desc 发布悬赏项目 or 发布帖子
@@ -30,6 +44,9 @@ public class PublishFragment extends BaseFragment {
     private ArrayList<ProjectCategory> projectCategoryList;
     private ArrayList<CityEntity> cityList;
     private int[] selectIndex = new int[3];
+    static int IMAGE_PICKER = 1;
+    static int TAKE_CAMERA = 2;
+    private ImageView imageView;
 
     public static PublishFragment newInstance() {
         PublishFragment fragment = new PublishFragment();
@@ -43,6 +60,7 @@ public class PublishFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+//        imageView = mRootView.findViewById(R.id.picture);
         mRootView.findViewById(R.id.choose_project_type).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,12 +73,26 @@ public class PublishFragment extends BaseFragment {
                 showCityPicker();
             }
         });
+        mRootView.findViewById(R.id.choose_image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlbum();
+//                Intent intent = new Intent(getActivity(), ImageGridActivity.class);
+//                startActivityForResult(intent, IMAGE_PICKER);
+
+//                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //MediaStore.ACTION_IMAGE_CAPTURE = android.media.action.IMAGE_CAPTURE
+//                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//                startActivityForResult(intent, TAKE_CAMERA);
+            }
+        });
     }
 
     @Override
     protected void initData() {
         this.getCateData();
         this.getCityData();
+//        this.initPicker();
     }
 
     /**
@@ -234,5 +266,60 @@ public class PublishFragment extends BaseFragment {
                 Log.e(getActivity().getClass().getName(), e.toString());
             }
         });
+    }
+
+    void showAlbum() {
+        int maxSelectNum = 9;
+        String TAG = getActivity().getClass().getName();
+        // 相册
+        PictureSelector.create(getActivity())
+                .openGallery(PictureMimeType.ofImage())
+                .maxSelectNum(maxSelectNum)
+                .minSelectNum(1)
+                .imageSpanCount(4)
+                .selectionMode(PictureConfig.MULTIPLE)
+                .forResult(new OnResultCallbackListener<LocalMedia>() {
+                    @Override
+                    public void onResult(List<LocalMedia> result) {
+                        Log.e(getActivity().getClass().getName() + "_length", String.valueOf(result.size()));
+                        LinearLayout layout = mRootView.findViewById(R.id.images_wrap);
+
+                        for (LocalMedia media : result) {
+                            int width  = media.getWidth();
+                            int height = media.getHeight();
+
+                            width = 260;
+                            height = 260;
+
+                            String path = media.getPath();
+
+                            ImageView imageView = new ImageView(getActivity());
+
+                            layout.addView(imageView);
+                            LinearLayout.LayoutParams layoutParams =  (LinearLayout.LayoutParams)imageView.getLayoutParams();
+                            layoutParams.rightMargin = 26;
+                            imageView.setLayoutParams(layoutParams);
+
+                            Picasso.with(getActivity()).load(Uri.fromFile(new File(path)))
+                                .resize(width, height)
+                                .centerInside()
+                                .into(imageView);
+
+                            Log.i(TAG, "是否压缩:" + media.isCompressed());
+                            Log.i(TAG, "压缩:" + media.getCompressPath());
+                            Log.i(TAG, "原图:" + media.getPath());
+                            Log.i(TAG, "是否裁剪:" + media.isCut());
+                            Log.i(TAG, "裁剪:" + media.getCutPath());
+                            Log.i(TAG, "是否开启原图:" + media.isOriginal());
+                            Log.i(TAG, "原图路径:" + media.getOriginalPath());
+                            Log.i(TAG, "Android Q 特有Path:" + media.getAndroidQToPath());
+                        }
+                        Log.e("child view", String.valueOf(layout.getChildCount()));
+                    }
+                    @Override
+                    public void onCancel() {
+                        Log.i(getActivity().getClass().getName() + "_cancel", "PictureSelector Cancel");
+                    }
+                });
     }
 }

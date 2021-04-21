@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".activity.HomeActivity">
     <!--ViewPager容器-->
-    <com.airtlab.news.view.FixedViewPager
+    <com.airtlab.news.view.DisableScrollViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -1,5 +1,8 @@
 package com.airtlab.news.activity;
 
+import android.content.Intent;
+import android.util.Log;
+
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -19,21 +22,21 @@ import java.util.ArrayList;
 
 public class HomeActivity extends BaseActivity {
     // 底部Tab标题配置
-    private String[] mTitles = {"首页", "大厅", "发布", "资讯", "我的"};
+    private String[] mTitles = {"大厅", "发现", "", "消息", "我的"};
     // 底部按钮未选中状态图标
     private int[] mIconUnselectIds = {
             R.mipmap.home_unselect,
             R.mipmap.collect_unselect,
-            R.mipmap.collect_unselect,
-            R.mipmap.collect_unselect,
+            R.drawable.ic_add,
+            R.mipmap.message,
             R.mipmap.my_unselect
     };
     // 底部Tab选中状态图标
     private int[] mIconSelectIds = {
             R.mipmap.home_selected,
             R.mipmap.collect_selected,
-            R.mipmap.collect_selected,
-            R.mipmap.collect_selected,
+            R.drawable.ic_circle_add,
+            R.mipmap.message,
             R.mipmap.my_selected
     };
     // 底部Tab Fragment
@@ -73,8 +76,12 @@ public class HomeActivity extends BaseActivity {
         commonTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                // 点击底部按钮
-                viewPager.setCurrentItem(position);
+                if (position != 2) {
+                    viewPager.setCurrentItem(position);
+                } else {
+                    Intent in = new Intent(mContext, PublishActivity.class);
+                    startActivity(in);
+                }
             }
 
             @Override

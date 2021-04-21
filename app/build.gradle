@@ -29,7 +29,6 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -40,25 +39,36 @@ dependencies {
 
     // Http
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+
     // Json转换
     implementation 'com.google.code.gson:gson:2.8.5'
+
     // TabLayout Tab切换
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
     // RecycleView 列表控件
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
     // 图片加载
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
     // 视频播放器
     implementation 'com.github.dueeeke.dkplayer:dkplayer-java:3.2.6'
     implementation 'com.github.dueeeke.dkplayer:dkplayer-ui:3.2.6'
     implementation 'com.github.dueeeke.dkplayer:player-exo:3.2.6'
     implementation 'com.github.dueeeke.dkplayer:player-ijk:3.2.6'
     implementation 'com.github.dueeeke.dkplayer:videocache:3.2.6'
+
     // 分页加载
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.3'
-    // Picker
-//    implementation 'com.contrarywind:Android-PickerView:4.1.9'
+
+    // 图片选择器
+    // implementation 'com.lzy.widget:imagepicker:0.6.1'
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.1'
+
+    // PickerView
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
+
     // Binder
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
