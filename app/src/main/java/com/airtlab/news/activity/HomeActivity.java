@@ -25,16 +25,16 @@ public class HomeActivity extends BaseActivity {
     private String[] mTitles = {"大厅", "发现", "", "消息", "我的"};
     // 底部按钮未选中状态图标
     private int[] mIconUnselectIds = {
-            R.mipmap.home_unselect,
-            R.mipmap.collect_unselect,
+            R.mipmap.home_o,
+            R.mipmap.discovery_o,
             R.drawable.ic_add,
-            R.mipmap.message,
+            R.mipmap.message_o,
             R.mipmap.my_unselect
     };
     // 底部Tab选中状态图标
     private int[] mIconSelectIds = {
-            R.mipmap.home_selected,
-            R.mipmap.collect_selected,
+            R.mipmap.home,
+            R.mipmap.discovery,
             R.drawable.ic_circle_add,
             R.mipmap.message,
             R.mipmap.my_selected
