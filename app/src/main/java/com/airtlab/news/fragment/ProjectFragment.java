@@ -1,5 +1,6 @@
 package com.airtlab.news.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airtlab.news.R;
+import com.airtlab.news.activity.DetailActivity;
 import com.airtlab.news.activity.WebActivity;
 import com.airtlab.news.adapter.NewsAdapter;
 import com.airtlab.news.adapter.ProjectAdapter;
@@ -89,18 +91,19 @@ public class ProjectFragment extends BaseFragment {
         projectAdapter = new ProjectAdapter(getActivity());
         recyclerView.setAdapter(projectAdapter);
 
-//        projectAdapter.setOnItemClickListener(new ProjectAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(Serializable obj) {
-//                NewsEntity newsEntity = (NewsEntity) obj;
-////                String url = "http://192.168.31.32:8089/newsDetail?title=" + newsEntity.getAuthorName();
-//                String url = "http://renwu.airtlab.com/project/56";
-//                Bundle bundle = new Bundle();
-//                bundle.putString("url", url);
-//                navigateToWithBundle(WebActivity.class, bundle);
-//            }
-//        });
+        // 设置点击回调
+        projectAdapter.setOnItemClickListener(new ProjectAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ProjectEntity projectEntity) {
+                Log.e("click", projectEntity.title);
+                Bundle bundle = new Bundle();
+                bundle.putString("title", projectEntity.title);
+                bundle.putString("id", projectEntity.title);
+                navigateToWithBundle(DetailActivity.class, bundle);
+            }
+        });
 
+        // 刷新回调
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -108,6 +111,8 @@ public class ProjectFragment extends BaseFragment {
                 getDataList(true);
             }
         });
+
+        // 加载更多回调
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
@@ -115,6 +120,8 @@ public class ProjectFragment extends BaseFragment {
                 getDataList(false);
             }
         });
+
+        // 数据初始化
         getDataList(true);
     }
 
