@@ -2,6 +2,7 @@ package com.airtlab.news.fragment;
 
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -69,6 +70,12 @@ public class RankUserFragment extends BaseFragment {
     protected void initView() {
         recyclerView = mRootView.findViewById(R.id.recyclerView);
         refreshLayout = mRootView.findViewById(R.id.refreshLayout);
+        mRootView.findViewById(R.id.page_back_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
     }
 
     @Override

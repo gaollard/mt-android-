@@ -98,7 +98,7 @@ public class ProjectFragment extends BaseFragment {
                 Log.e("click", projectEntity.title);
                 Bundle bundle = new Bundle();
                 bundle.putString("title", projectEntity.title);
-                bundle.putString("id", projectEntity.title);
+                bundle.putString("id", projectEntity.id);
                 navigateToWithBundle(DetailActivity.class, bundle);
             }
         });

@@ -1,34 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".fragment.NewsFragment">
-    <!--标题栏-->
-    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragment.ProjectDetailDetailFragment"
+    android:background="#fff">
+
+    <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/skin_topbar_bg_color">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <!--标题-->
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/project_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#333"
+                android:layout_weight="1"
+                android:text="酷炫球鞋交易平台开发">
+            </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textSize="12sp"
+                android:textColor="#333"
+                />
+        </LinearLayout>
+
+        <!--标签-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#72ace8"
+                android:background="#f7f6f6"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                android:layout_marginRight="10dp"
+                android:text="H5应用">
+            </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#72ace8"
+                android:background="#f7f6f6"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                android:text="项目任务">
+            </TextView>
+        </LinearLayout>
+
+        <!--预算-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#666"
+                android:text="项目预算：">
+            </TextView>
+            <TextView
+                android:id="@+id/project_reward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#666"
+                android:text="￥10000">
+            </TextView>
+        </LinearLayout>
+
+        <!--技能要求-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#666"
+                android:text="技能要求：">
+            </TextView>
+            <TextView
+                android:id="@+id/project_skill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#666"
+                android:text="熟悉 scale 语言">
+            </TextView>
+        </LinearLayout>
+
+        <!--发布时间-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#666"
+                android:text="发布时间：">
+            </TextView>
+            <TextView
+                android:id="@+id/project_create_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#666"
+                android:text="2020-03-28 01:54:26">
+            </TextView>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="6dp"
+            android:layout_alignParentBottom="true"
+            android:background="#f1f1f1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:paddingBottom="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/project_avatar"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/header" />
+                <TextView
+                    android:id="@+id/author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:text="游戏早知道"
+                    android:textColor="#777777"
+                    android:textSize="13sp" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/enroll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:text="1人报名"
+                android:textColor="#777777"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#f5f5f5"
+        android:layout_height="8dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:gravity="center"
+            android:paddingLeft="12dp"
+            android:textColor="#333"
+            android:textSize="16sp"
+            android:text="需求描述">
+        </TextView>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="#f7f6f6"/>
+        <TextView
+            android:id="@+id/project_desc"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="12dp"
+            android:lineHeight="24dp"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="需求详情"
-            android:textColor="@color/skin_text_white"
-            android:textSize="18sp" />
-    </RelativeLayout>
-    <!--列表-->
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:textColor="#6d6b6b"
+            android:text="这是详细的需求描述"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:id="@+id/refreshLayout">
+        android:background="#f5f5f5"
+        android:layout_height="8dp"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:gravity="center"
+            android:paddingLeft="12dp"
+            android:textColor="#333"
+            android:textSize="16sp"
+            android:text="投标列表">
+        </TextView>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="#f7f6f6"/>
         <androidx.recyclerview.widget.RecyclerView
+            android:background="#f5f5f5"
+            android:clipToPadding="false"
+            android:paddingTop="10dp"
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="80dp">
         </androidx.recyclerview.widget.RecyclerView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </LinearLayout>
 </LinearLayout>

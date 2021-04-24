@@ -61,7 +61,6 @@ public class LoginActivity extends BaseActivity {
         Api.config(ApiConfig.LOGIN, params).postRequest(this,new ApiCallback() {
             @Override
             public void onSuccess(final String res) {
-                Log.e("onSuccess", res);
                 Gson gson = new Gson();
                 LoginResponse loginResponse = gson.fromJson(res, LoginResponse.class);
                 if (loginResponse.getCode() == 0) {
@@ -79,6 +78,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onFailure(Exception e) {
                 Log.e("onFailure", e.getMessage());
+                showToast(e.toString());
             }
         });
     }

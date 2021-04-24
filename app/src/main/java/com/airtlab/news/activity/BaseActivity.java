@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
-import android.os.PersistableBundle;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -76,6 +75,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(in);
     }
 
+    /**
+     * @desc 打开新页面，并且指定类型
+     * @param cls
+     * @param flags
+     */
     public void navigateToWithFlag(Class cls, int flags) {
         Intent in = new Intent(mContext, cls);
         in.setFlags(flags);

@@ -62,7 +62,6 @@ public class HomeFragment extends BaseFragment {
         view.findViewById(R.id.go_to_user_rank).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("hello", "world");
                 Bundle bundle = new Bundle();
                 navigateToWithBundle(UserRankActivity.class, bundle);
             }
@@ -71,7 +70,6 @@ public class HomeFragment extends BaseFragment {
         view.findViewById(R.id.btn_go_to_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("hello", "world");
                 Bundle bundle = new Bundle();
                 navigateToWithBundle(SearchActivity.class, bundle);
             }
