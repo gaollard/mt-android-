@@ -139,6 +139,7 @@ public class NewsFragment extends BaseFragment {
 
             @Override
             public void onFailure(Exception e) {
+                Log.e("getNewsList", e.toString());
                 if (isRefresh) {
                     refreshLayout.finishRefresh(true);
                 } else {

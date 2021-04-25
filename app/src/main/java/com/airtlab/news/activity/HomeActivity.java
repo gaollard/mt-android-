@@ -1,12 +1,19 @@
 package com.airtlab.news.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -26,9 +33,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import java.util.ArrayList;
 
 public class HomeActivity extends BaseActivity {
-    // 底部Tab标题配置
-//    RadioGroup
-    private RadioGroup m_tabbar;
+    private LinearLayout l_tab;
     private String[] mTitles = {"大厅", "发现", "", "消息", "我的"};
     // 底部按钮未选中状态图标
     private int[] mIconUnselectIds = {
@@ -63,33 +68,54 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void initView() {
         viewPager = findViewById(R.id.viewpager);
-        commonTabLayout = findViewById(R.id.commonTabLayout);
-        m_tabbar = findViewById(R.id.m_tabbar);
+        l_tab = findViewById(R.id.l_tab);
         initTabbar();
     }
 
+    private void clickMTab(int i) {;
+        Log.e("hhh", String.valueOf(i));
+        for (int p = 0; p < l_tab.getChildCount(); p++) {
+            if (p != 2) {
+                LinearLayout l = (LinearLayout)l_tab.getChildAt(p);
+                ImageView imageView = (ImageView)l.getChildAt(0);
+                TextView textView = (TextView)l.getChildAt(1);
+                textView.setTextColor(Color.parseColor("#888888"));
+                imageView.setImageResource(mIconUnselectIds[p]);
+                Log.e("text" + String.valueOf(p), textView.getText().toString());
+            }
+        }
+        if (i != 2) {
+            LinearLayout l = (LinearLayout)l_tab.getChildAt(i);
+            ImageView imageView = (ImageView)l.getChildAt(0);
+            TextView textView = (TextView)l.getChildAt(1);
+            imageView.setImageResource(mIconSelectIds[i]);
+            textView.setTextColor(Color.parseColor("#6200EE"));
+            Log.e("text" + String.valueOf(i), textView.getText().toString());
+        }
+    }
+
     private void initTabbar() {
-        m_tabbar.removeAllViews();
-        for (int i = 0; i < mTitles.length; i++) {
-            RadioButton rb = new RadioButton(this);
-            rb.setText(mTitles[i]);
-            rb.setTextColor(R.color.black);
-            rb.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-
-            // Drawable
-            Drawable drawableFirst = getResources().getDrawable(R.mipmap.home_o);
-            drawableFirst.setBounds(0, 0, 50, 50); //第一0是距左右边距离，第二0是距上下边距离，第三50长度,第四宽度50
-            rb.setCompoundDrawables(null, drawableFirst, null, null);//只放上面
-
-            // 布局参数
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            layoutParams.weight = 1;
-            rb.setLayoutParams(layoutParams);
-
-            m_tabbar.addView(rb);
+        clickMTab(0);
+        for (int i = 0; i < l_tab.getChildCount(); i++) {
+            if (i != 2) {
+                LinearLayout l = (LinearLayout)l_tab.getChildAt(i);
+                l.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int i = l_tab.indexOfChild(view);
+                        clickMTab(i);
+                    }
+                });
+            } else {
+                LinearLayout l = (LinearLayout)l_tab.getChildAt(i);
+                l.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent in = new Intent(mContext, PublishActivity.class);
+                        startActivity(in);
+                    }
+                });
+            }
         }
     }
 
@@ -106,39 +132,22 @@ public class HomeActivity extends BaseActivity {
         for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
         }
-        commonTabLayout.setTabData(mTabEntities);
-        commonTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                if (position != 2) {
-                    viewPager.setCurrentItem(position);
-                } else {
-                    Intent in = new Intent(mContext, PublishActivity.class);
-                    startActivity(in);
-                }
-            }
-
-            @Override
-            public void onTabReselect(int position) { }
-        });
-
         // 设置预先加载 Fragment，防止快速切换BUG
         viewPager.setOffscreenPageLimit(mFragments.size());
+
         // ViewPager 设置监听
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
             public void onPageSelected(int position) {
-                commonTabLayout.setCurrentTab(position);
+                clickMTab(position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
         // 给 ViewPager 对象设置适配器
