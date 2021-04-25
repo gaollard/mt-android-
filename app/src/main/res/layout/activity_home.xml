@@ -19,6 +19,47 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/divider" />
+    <RadioGroup
+        android:id="@+id/m_tabbar"
+        android:background="#ff0000"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+        <RadioButton
+            android:layout_weight="1"
+            android:text="大厅"
+            android:background="@mipmap/home_o"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </RadioButton>
+        <RadioButton
+            android:layout_weight="1"
+            android:text="发现"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </RadioButton>
+        <RadioButton
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </RadioButton>
+        <RadioButton
+            android:layout_weight="1"
+            android:text="消息"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </RadioButton>
+        <RadioButton
+            android:layout_weight="1"
+            android:text="我的"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </RadioButton>
+    </RadioGroup>
     <!--Tab导航-->
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/commonTabLayout"

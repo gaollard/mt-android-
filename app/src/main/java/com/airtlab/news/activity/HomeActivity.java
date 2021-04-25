@@ -1,7 +1,12 @@
 package com.airtlab.news.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.util.TypedValue;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -22,6 +27,8 @@ import java.util.ArrayList;
 
 public class HomeActivity extends BaseActivity {
     // 底部Tab标题配置
+//    RadioGroup
+    private RadioGroup m_tabbar;
     private String[] mTitles = {"大厅", "发现", "", "消息", "我的"};
     // 底部按钮未选中状态图标
     private int[] mIconUnselectIds = {
@@ -57,6 +64,33 @@ public class HomeActivity extends BaseActivity {
     protected void initView() {
         viewPager = findViewById(R.id.viewpager);
         commonTabLayout = findViewById(R.id.commonTabLayout);
+        m_tabbar = findViewById(R.id.m_tabbar);
+        initTabbar();
+    }
+
+    private void initTabbar() {
+        m_tabbar.removeAllViews();
+        for (int i = 0; i < mTitles.length; i++) {
+            RadioButton rb = new RadioButton(this);
+            rb.setText(mTitles[i]);
+            rb.setTextColor(R.color.black);
+            rb.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+
+            // Drawable
+            Drawable drawableFirst = getResources().getDrawable(R.mipmap.home_o);
+            drawableFirst.setBounds(0, 0, 50, 50); //第一0是距左右边距离，第二0是距上下边距离，第三50长度,第四宽度50
+            rb.setCompoundDrawables(null, drawableFirst, null, null);//只放上面
+
+            // 布局参数
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.weight = 1;
+            rb.setLayoutParams(layoutParams);
+
+            m_tabbar.addView(rb);
+        }
     }
 
     @Override
