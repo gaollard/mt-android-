@@ -1,12 +1,17 @@
 package com.airtlab.news.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +34,8 @@ import com.google.gson.Gson;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DetailActivity extends BaseActivity {
     private ProjectEntity detailData;
@@ -74,6 +81,9 @@ public class DetailActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        btm_action_bar.setVisibility(View.VISIBLE);
+        msg_edit.setVisibility(View.GONE);
+
         // 初始化 recyclerView
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -103,6 +113,16 @@ public class DetailActivity extends BaseActivity {
             public void onClick(View v) {
                 btm_action_bar.setVisibility(View.GONE); // 隐藏底部操作栏
                 msg_edit.setVisibility(View.VISIBLE);    // 显示留言输入框
+                focusControl();
+                // 获取焦点
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        Log.v("timer", String.valueOf(500));
+                    }
+                };
+                Timer timer = new Timer();
+                timer.schedule(task, 500);
             }
         });
 
@@ -114,6 +134,7 @@ public class DetailActivity extends BaseActivity {
             }
         });
 
+        // 监听确认
         msg_edit_control.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -128,16 +149,78 @@ public class DetailActivity extends BaseActivity {
         });
     }
 
+    public void focusControl() {
+        msg_edit_control.setFocusable(true);
+        msg_edit_control.setFocusableInTouchMode(true);
+        msg_edit_control.requestFocus();
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(msg_edit_control, 0);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if(ev.getAction() == MotionEvent.ACTION_DOWN){
+            View v = getCurrentFocus();
+            boolean  hideInputResult = isShouldHideInput(v,ev);
+            Log.v("hideInputResult","zzz-->>" + hideInputResult);
+            if(hideInputResult){
+                v.clearFocus();
+                InputMethodManager imm = (InputMethodManager) DetailActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                if(v != null){
+                    if(imm.isActive()){
+                        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                }
+                msg_edit.setVisibility(View.GONE);
+                btm_action_bar.setVisibility(View.VISIBLE);
+                Log.v("hide", hideInputResult + "");
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    public boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            int[] leftTop = { 0, 0 };
+            // 获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            // 之前一直不成功的原因是,getX获取的是相对父视图的坐标,getRawX获取的才是相对屏幕原点的坐标！！！
+            Log.v("leftTop[]","zz--left:"+left+"--top:"+top+"--bottom:"+bottom+"--right:"+right);
+            Log.v("event","zz--getX():"+event.getRawX()+"--getY():"+event.getRawY());
+            if (event.getRawX() > left && event.getRawX() < right
+                    && event.getRawY() > top && event.getRawY() < bottom) {
+                // 点击的是输入框区域，保留点击EditText的事件
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @desc 获取项目详情后，更新数据
+     */
     private void updateView() {
         FragmentManager fm = getSupportFragmentManager();
         ProjectDetailDetailFragment fragment = (ProjectDetailDetailFragment)fm.findFragmentById(R.id.detail_detail);
         fragment.setDetailData(this.detailData);
     }
 
+    /**
+     * @desc 项目详情
+     */
     class ProjectDetailResponseEntity extends ApiProtocol implements Serializable {
         public ProjectEntity data;
     }
 
+    /**
+     * @desc 评论接口
+     */
     class CommentRes extends ApiProtocol {
         public Data data;
         class Data {
@@ -145,6 +228,9 @@ public class DetailActivity extends BaseActivity {
         }
     }
 
+    /**
+     * @desc 获取评论列表
+     */
     private void getComment() {
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
