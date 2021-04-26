@@ -6,9 +6,8 @@
     android:paddingRight="12dp"
     android:layout_height="wrap_content">
     <ImageView
-        android:id="@+id/c_avatar"
-        android:src="@mipmap/avatar"
         android:layout_width="28dp"
+        android:background="#ff0000"
         android:layout_marginTop="6dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
@@ -61,12 +60,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:tint="#999999"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginRight="6dp"
                     android:src="@mipmap/message_o">
                 </ImageView>
                 <ImageView
+                    android:tint="#999999"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginRight="0dp"
@@ -75,9 +76,4 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
-    <!--字评论-->
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/c_reply_list"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"/>-->
 </LinearLayout>

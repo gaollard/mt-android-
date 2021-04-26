@@ -1,38 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f5f5f5"
     android:orientation="vertical"
     tools:context=".activity.DetailActivity">
-    <!--标题栏-->
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/skin_topbar_bg_color">
-        <ImageView
-            android:id="@+id/page_back_btn"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_back_white" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:id="@+id/page_header_title"
-            android:text="需求详情"
-            android:textColor="@color/skin_text_white"
-            android:textSize="18sp" />
-    </RelativeLayout>
+        android:layout_height="match_parent">
+        <!--标题栏-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/skin_topbar_bg_color">
+            <ImageView
+                android:id="@+id/page_back_btn"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_back_white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/page_header_title"
+                android:text="需求详情"
+                android:textColor="@color/skin_text_white"
+                android:textSize="18sp" />
+        </RelativeLayout>
 
-    <fragment
-        android:id="@+id/detail_detail"
-        android:name="com.airtlab.news.fragment.ProjectDetailDetailFragment"
-        android:layout_width="wrap_content"
+        <fragment
+            android:id="@+id/detail_detail"
+            android:name="com.airtlab.news.fragment.ProjectDetailDetailFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </fragment>
+
+        <LinearLayout
+            android:background="#fff"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:gravity="center"
+                android:paddingLeft="12dp"
+                android:textColor="#333"
+                android:textSize="16sp"
+                android:text="留言列表">
+            </TextView>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="#f7f6f6"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:background="#fff"
+            android:id="@+id/comment_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+
+    <!--操作栏-->
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/btm_action_bar"
+        android:gravity="center"
+        android:background="#fff"
+        android:paddingVertical="4dp"
+        android:paddingHorizontal="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </fragment>
-</LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_thumb_up"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#888"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
+                    android:text="超赞"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginLeft="24dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_star"/>
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#888"
+                    android:textSize="12sp"
+                    android:text="收藏"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btm_action_msg"
+                android:layout_marginLeft="24dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:tint="#888"
+                    android:src="@mipmap/message"/>
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#888"
+                    android:textSize="12sp"
+                    android:text="留言"/>
+            </LinearLayout>
+        </LinearLayout>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:textSize="12dp"
+            android:text="私聊"/>
+    </LinearLayout>
+
+    <!--留言框-->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/msg_edit"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="6dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/msg_edit_control"
+            android:layout_weight="1"
+            android:imeOptions="actionSend"
+            android:paddingHorizontal="10dp"
+            android:hint="点赞是美德，评论是真爱~"
+            android:textColorHint="#ddd"
+            android:textSize="12sp"
+            android:background="#f5f5f5"
+            android:minHeight="30dp"
+            android:textColor="#333"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/msg_edit_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            android:layout_marginLeft="12dp"
+            android:text="发送"/>
+    </LinearLayout>
+</RelativeLayout>

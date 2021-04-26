@@ -31,7 +31,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
-
+    
     /**
      * 构造器，无列表数据
      * @param context

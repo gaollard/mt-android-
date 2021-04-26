@@ -1,6 +1,5 @@
 package com.airtlab.news;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,10 +26,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        if (!StringUtils.isEmpty(findByKey("token"))) {
-            navigateTo(HomeActivity.class);
-            finish();
-        }
+//        if (!StringUtils.isEmpty(findByKey("token"))) {
+//            navigateTo(HomeActivity.class);
+//            finish();
+//        }
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

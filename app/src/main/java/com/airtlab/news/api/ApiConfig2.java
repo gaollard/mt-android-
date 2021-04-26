@@ -7,10 +7,10 @@ public class ApiConfig2 {
     // 项目
     public static final String project_category = "/demand-category";
     public static final String project_list = "/demand";
-    // 项目 ID
     public static String getDetailUrl (int id) {
         return "/demand/" + String.valueOf(id);
     }
+    public static final String comment_url = "/comment";
 
     // 用户
     public static final String user_login = "/user/login";
