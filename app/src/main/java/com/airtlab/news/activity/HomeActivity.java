@@ -34,6 +34,8 @@ import java.util.ArrayList;
 
 public class HomeActivity extends BaseActivity {
     private LinearLayout l_tab;
+    private String selectedColor = "#6200EE";
+    private String unSelectedColor = "#888888";
     private String[] mTitles = {"大厅", "发现", "", "消息", "我的"};
     // 底部按钮未选中状态图标
     private int[] mIconUnselectIds = {
@@ -79,8 +81,9 @@ public class HomeActivity extends BaseActivity {
                 LinearLayout l = (LinearLayout)l_tab.getChildAt(p);
                 ImageView imageView = (ImageView)l.getChildAt(0);
                 TextView textView = (TextView)l.getChildAt(1);
-                textView.setTextColor(Color.parseColor("#888888"));
+                textView.setTextColor(Color.parseColor(unSelectedColor));
                 imageView.setImageResource(mIconUnselectIds[p]);
+                imageView.setColorFilter(Color.parseColor(unSelectedColor));
                 Log.e("text" + String.valueOf(p), textView.getText().toString());
             }
         }
@@ -89,7 +92,8 @@ public class HomeActivity extends BaseActivity {
             ImageView imageView = (ImageView)l.getChildAt(0);
             TextView textView = (TextView)l.getChildAt(1);
             imageView.setImageResource(mIconSelectIds[i]);
-            textView.setTextColor(Color.parseColor("#6200EE"));
+            textView.setTextColor(Color.parseColor(selectedColor));
+            imageView.setColorFilter(Color.parseColor(selectedColor));
             Log.e("text" + String.valueOf(i), textView.getText().toString());
         }
     }
@@ -104,10 +108,13 @@ public class HomeActivity extends BaseActivity {
                     public void onClick(View view) {
                         int i = l_tab.indexOfChild(view);
                         clickMTab(i);
+                        viewPager.setCurrentItem(i);
                     }
                 });
             } else {
                 LinearLayout l = (LinearLayout)l_tab.getChildAt(i);
+//                ImageView imageView = (ImageView)l.getChildAt(0);
+//                imageView.setColorFilter(R.color.colorPink);
                 l.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
