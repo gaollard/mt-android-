@@ -43,7 +43,7 @@ public class HomeActivity extends BaseActivity {
             R.mipmap.discovery_o,
             R.drawable.ic_add,
             R.mipmap.message_o,
-            R.mipmap.my_unselect
+            R.mipmap.account_o
     };
     // 底部Tab选中状态图标
     private int[] mIconSelectIds = {
@@ -51,7 +51,7 @@ public class HomeActivity extends BaseActivity {
             R.mipmap.discovery,
             R.drawable.ic_circle_add,
             R.mipmap.message,
-            R.mipmap.my_selected
+            R.mipmap.account
     };
     // 底部Tab Fragment
     private ArrayList<Fragment> mFragments = new ArrayList<>();
