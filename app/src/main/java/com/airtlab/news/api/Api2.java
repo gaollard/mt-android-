@@ -108,8 +108,7 @@ public class Api2 {
 
         HashMap<String, Object> t = new HashMap<String, Object>();
         t.put("token", token);
-
-        url = getAppendUrl(requestUrl, t);
+        url = getAppendUrl(url, t);
 
         Log.e("getRequest", url);
         Request request = new Request.Builder()
