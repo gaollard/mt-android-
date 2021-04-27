@@ -8,9 +8,13 @@ import android.widget.EditText;
 
 import com.airtlab.news.R;
 import com.airtlab.news.api.Api;
+import com.airtlab.news.api.Api2;
 import com.airtlab.news.api.ApiCallback;
 import com.airtlab.news.api.ApiConfig;
+import com.airtlab.news.api.ApiConfig2;
+import com.airtlab.news.entity.ApiProtocol;
 import com.airtlab.news.entity.LoginResponse;
+import com.airtlab.news.entity.UserEntity;
 import com.airtlab.news.util.StringUtils;
 import com.google.gson.Gson;
 
@@ -45,6 +49,13 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
+    class LoginRes extends ApiProtocol {
+        class Data extends UserEntity {
+            public String token;
+        }
+        public Data data;
+    }
+
     private void login(String account, String pwd) {
         if (StringUtils.isEmpty(account)) {
             showToast("请输入账号");
@@ -56,29 +67,26 @@ public class LoginActivity extends BaseActivity {
         }
 
         HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("mobile", account);
-        params.put("password", pwd);
-        Api.config(ApiConfig.LOGIN, params).postRequest(this,new ApiCallback() {
+        params.put("email", "1056834607@qq.com");
+        params.put("password", "199389");
+
+        Api2.config(ApiConfig2.user_login, params).postRequest(this, new ApiCallback() {
             @Override
-            public void onSuccess(final String res) {
-                Gson gson = new Gson();
-                LoginResponse loginResponse = gson.fromJson(res, LoginResponse.class);
-                if (loginResponse.getCode() == 0) {
-                    String token = loginResponse.getToken();
+            public void onSuccess(String res) {
+                LoginRes loginRes = new Gson().fromJson(res, LoginRes.class);
+                if (loginRes != null && loginRes.errCode.equals("0")) {
+                    String token = loginRes.data.token;
                     insertVal("token", token);
+                    insertVal("userInfo", loginRes.data.toString());
                     // 不允许返回启动页面
-                    navigateToWithFlag(HomeActivity.class,
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    showToastSync("登录成功");
+                    navigateToWithFlag(HomeActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 } else {
-                    showToastSync("登录失败");
+                    showToastSync("登录失败" + res);
                 }
             }
-
             @Override
             public void onFailure(Exception e) {
-                Log.e("onFailure", e.getMessage());
-                showToast(e.toString());
+                showToast("登录失败" + e.toString());
             }
         });
     }

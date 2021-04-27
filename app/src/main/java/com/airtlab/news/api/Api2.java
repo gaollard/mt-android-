@@ -64,6 +64,11 @@ public class Api2 {
         MediaType mediaType =  MediaType.parse("application/json;charset=utf-8");
         RequestBody requestBodyJson = RequestBody.create(mediaType, jsonStr);
 
+        HashMap<String, Object> t = new HashMap<String, Object>();
+        t.put("token", token);
+
+        requestUrl = getAppendUrl(requestUrl, t);
+
         // 2. 创建 request
         Request request = new Request.Builder()
                 .url(requestUrl)
@@ -100,6 +105,11 @@ public class Api2 {
         SharedPreferences sp = context.getSharedPreferences(PreferenceName, MODE_PRIVATE);
         String token = sp.getString("token", "");
         String url = getAppendUrl(requestUrl, mParams);
+
+        HashMap<String, Object> t = new HashMap<String, Object>();
+        t.put("token", token);
+
+        url = getAppendUrl(requestUrl, t);
 
         Log.e("getRequest", url);
         Request request = new Request.Builder()

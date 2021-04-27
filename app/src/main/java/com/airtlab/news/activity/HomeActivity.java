@@ -132,7 +132,7 @@ public class HomeActivity extends BaseActivity {
         mFragments.add(HomeFragment.newInstance());
         mFragments.add(ProjectFragment.newInstance());
         mFragments.add(PublishFragment.newInstance());
-        mFragments.add(NewsFragment.newInstance());
+        mFragments.add(MyFragment.newInstance());
         mFragments.add(MyFragment.newInstance());
 
         // mTabEntities 初始化

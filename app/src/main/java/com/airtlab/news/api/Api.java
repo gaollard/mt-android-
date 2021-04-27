@@ -122,6 +122,7 @@ public class Api {
                     JSONObject jsonObject = new JSONObject(result);
                     String code = jsonObject.getString("code");
                     if (code.equals("401")) {
+                        Log.e("login failed", url + code);
                         Intent in = new Intent(context, LoginActivity.class);
                         context.startActivity(in);
                     }
