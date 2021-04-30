@@ -86,6 +86,12 @@ public class PublishFragment extends BaseFragment {
 //                startActivityForResult(intent, TAKE_CAMERA);
             }
         });
+        mRootView.findViewById(R.id.page_back_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
     }
 
     @Override

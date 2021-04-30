@@ -15,20 +15,29 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_height="45dp">
-            <TextView
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_height="54dp">
+            <ImageView
+                android:id="@+id/page_back_btn"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/black"
+                android:src="@drawable/ic_arrow_back_white"
+                android:tint="@color/black"
+                />
+            <com.airtlab.news.view.SegmentView
+                android:minHeight="34dp"
                 android:layout_centerInParent="true"
-                android:text="发布需求"/>
-            <RelativeLayout
-                android:layout_height="1dp"
-                android:layout_width="match_parent"
-                android:layout_alignParentBottom="true"
-                android:background="#f5f6f8" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="#f5f6f8" />
 
         <!--滚动容器-->
         <ScrollView
