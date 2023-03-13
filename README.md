@@ -1,3 +1,3 @@
-# 玄武众包 安卓版
+# renwu 安卓版
 
-这是一个练手项目。
+renwu android
